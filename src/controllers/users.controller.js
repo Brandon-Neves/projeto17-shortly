@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt'
 
 export async function createUser(req, res) {
   const { name, password, email } = res.locals.user
-  console.log(name, password, email)
 
   try {
     const passwordHash = bcrypt.hashSync(password, 10)
@@ -14,6 +13,6 @@ export async function createUser(req, res) {
     )
     res.sendStatus(201)
   } catch (err) {
-    res.sendStatus(300)
+    res.sendStatus(500)
   }
 }
