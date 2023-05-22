@@ -64,7 +64,7 @@ ALTER SEQUENCE public.sessions_id_seq OWNED BY public.sessions.id;
 -- Name: url; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.url (
+CREATE TABLE public.urls (
     id integer NOT NULL,
     url text NOT NULL,
     "shortUrl" text NOT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE public.url (
 -- Name: url_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.url_id_seq
+CREATE SEQUENCE public.urls_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -147,7 +147,7 @@ ALTER TABLE ONLY public.sessions ALTER COLUMN id SET DEFAULT nextval('public.ses
 -- Name: url id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.url ALTER COLUMN id SET DEFAULT nextval('public.url_id_seq'::regclass);
+ALTER TABLE ONLY public.urls ALTER COLUMN id SET DEFAULT nextval('public.url_id_seq'::regclass);
 
 
 --
@@ -172,7 +172,7 @@ ALTER TABLE ONLY public.sessions
 -- Name: url url_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.url
+ALTER TABLE ONLY public.urls
     ADD CONSTRAINT url_pkey PRIMARY KEY (id);
 
 
@@ -208,7 +208,7 @@ ALTER TABLE ONLY public.sessions
 -- Name: url url_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.url
+ALTER TABLE ONLY public.urls
     ADD CONSTRAINT "url_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users(id);
 
 
