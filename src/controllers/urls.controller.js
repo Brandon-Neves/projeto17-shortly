@@ -8,7 +8,7 @@ export async function shortenUrl(req, res) {
 
   try {
     await db.query(
-      `INSERT INTO url (url, "shortUrl", "userId")
+      `INSERT INTO urls (url, "shortUrl", "userId")
     VALUES ($1, $2, $3)`,
       [req.body.url, url, id]
     )
@@ -22,7 +22,7 @@ export async function getUrls(req, res) {
   const id = req.params.id
 
   try {
-    const { rows } = await db.query(`SELECT * FROM url WHERE id = $1;`, [id])
+    const { rows } = await db.query(`SELECT * FROM urls WHERE id = $1;`, [id])
     if (rows.length === 0) {
       return res.sendStatus(404)
     }
@@ -40,7 +40,7 @@ export async function redirectUrl(req, res) {
 
   try {
     const { rows } = await db.query(
-      `SELECT * FROM url WHERE "shortUrl" = $1;`,
+      `SELECT * FROM urls WHERE "shortUrl" = $1;`,
       [shortUrl]
     )
     if (rows.length === 0) {
@@ -49,7 +49,7 @@ export async function redirectUrl(req, res) {
     const result = rows[0]
 
     await db.query(
-      `UPDATE url SET count = count + 1 
+      `UPDATE urls SET "visitCount" = "visitCount" + 1 
     WHERE id = $1`,
       [result.id]
     )
@@ -65,13 +65,13 @@ export async function deleteUrl(req, res) {
   const user = res.locals.user
 
   try {
-    const { rows } = await db.query(`SELECT * FROM url WHERE id = $1`, [id])
+    const { rows } = await db.query(`SELECT * FROM urls WHERE id = $1`, [id])
     const resultUrl = rows[0]
 
     if (rows.length === 0) return res.sendStatus(404)
     if (user.id !== resultUrl.userId) return res.sendStatus(401)
 
-    await db.query(`DELETE FROM url WHERE id = $1`, [id])
+    await db.query(`DELETE FROM urls WHERE id = $1`, [id])
 
     res.sendStatus(204)
   } catch (err) {

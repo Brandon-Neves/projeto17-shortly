@@ -4,13 +4,13 @@ import createUserSchema from '../schemas/user.Schema.js'
 import { signUpValidation } from '../middlewares/signup.middleware.js'
 import { createUser } from '../controllers/users.controller.js'
 
-const userRouter = express.Router()
+const createUserRouter = express.Router()
 
-userRouter.post(
+createUserRouter.post(
   '/signup',
   validateSchema(createUserSchema),
   signUpValidation,
   createUser
 )
 
-export default userRouter
+export default createUserRouter
