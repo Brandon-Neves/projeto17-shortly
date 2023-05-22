@@ -2,11 +2,11 @@ import { db } from '../database/database.js'
 import { nanoid } from 'nanoid'
 
 export async function shortenUrl(req, res) {
-  let { url } = req.body
+  const { url } = req.body
   const userId = res.locals.user.id
 
-  const shortUrl = nanoid(8)
-
+  let shortUrl = url
+  shortUrl = nanoid(8)
   try {
     const { rows } = await db.query(
       `INSERT INTO urls (url, "shortUrl", "userId")
