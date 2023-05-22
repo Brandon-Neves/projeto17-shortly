@@ -94,7 +94,7 @@ CREATE SEQUENCE public.urls_id_seq
 -- Name: url_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.url_id_seq OWNED BY public.url.id;
+ALTER SEQUENCE public.urls_id_seq OWNED BY public.url.id;
 
 
 --
