@@ -3,15 +3,17 @@ import { nanoid } from 'nanoid'
 
 export async function shortenUrl(req, res) {
   let { url } = req.body
-  const { id } = res.locals.user
-  url = nanoid(8)
+  const userId = res.locals.user.id
+
+  const shortUrl = nanoid(8)
 
   try {
-    await db.query(
+    const { rows } = await db.query(
       `INSERT INTO urls (url, "shortUrl", "userId")
-    VALUES ($1, $2, $3)`,
-      [req.body.url, url, id]
+    VALUES ($1, $2, $3) RETURNING id`,
+      [url, shortUrl, userId]
     )
+    const { id } = rows[0]
     res.status(201).send({ id: id, shortUrl: url })
   } catch (err) {
     res.sendStatus(500)
