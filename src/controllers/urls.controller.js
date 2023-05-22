@@ -14,7 +14,7 @@ export async function shortenUrl(req, res) {
       [url, shortUrl, userId]
     )
     const { id } = rows[0]
-    res.status(201).send({ id: id, shortUrl: url })
+    res.status(201).send({ id: id, shortUrl: shortUrl })
   } catch (err) {
     res.sendStatus(500)
   }
