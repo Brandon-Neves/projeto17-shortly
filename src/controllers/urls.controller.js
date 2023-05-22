@@ -10,7 +10,7 @@ export async function shortenUrl(req, res) {
   try {
     const { rows } = await db.query(
       `INSERT INTO urls (url, "shortUrl", "userId")
-    VALUES ($1, $2, $3) RETURNING id`,
+    VALUES ($1, $2, $3) RETURNING id;`,
       [url, shortUrl, userId]
     )
     const { id } = rows[0]
@@ -30,7 +30,7 @@ export async function getUrls(req, res) {
     }
     const result = rows[0]
     res
-      .status(201)
+      .status(200)
       .send({ id: result.id, shortUrl: result.shortUrl, url: result.url })
   } catch (err) {
     res.sendStatus(500)
